@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ENIGMA – E-Cell NMIT</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
+
+  <!-- ScrollReveal -->
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal"></script>
+
+  <style>
+    :root{
+      --bg:#0A0A0A;          /* deep black */
+      --text:#F8F9FA;        /* off-white */
+      --muted:#B0B0B0;       /* secondary text */
+      --primary:#FF3C38;     /* energetic red */
+      --secondary:#FFB800;   /* golden yellow */
+      --teal:#2EC4B6;        /* aqua pop */
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    }
+    .display { font-family: Poppins, Inter, sans-serif; font-weight: 800; letter-spacing: -0.02em; }
+    .h-title { font-family: Poppins, Inter, sans-serif; font-weight: 700; }
+
+    /* Navbar link underline */
+    .nav-link { position: relative; }
+    .nav-link:after {
+      content:""; position:absolute; left:0; bottom:-6px; height:2px; width:0;
+      background:linear-gradient(90deg,var(--primary),var(--secondary),var(--teal));
+      transition:width .25s ease;
+    }
+    .nav-link:hover:after { width:100%; }
+
+    /* Card glass-lite */
+    .card {
+      background:#0f0f10;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,184,0,.45);
+      box-shadow: 0 14px 40px -18px rgba(255,60,56,.45), 0 6px 20px -14px rgba(46,196,182,.35);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: linear-gradient(135deg,var(--primary),#ff6a38);
+      color:white;
+    }
+    .btn-primary:hover { filter:brightness(1.05); transform: translateY(-1px); }
+    .btn-ghost {
+      background:transparent; border:1px solid rgba(255,255,255,.14); color:var(--text);
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.28); }
+
+    /* Back to Top */
+    #backToTop { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
+    #backToTop:hover { filter: brightness(1.1); transform: translateY(-2px) scale(1.05); }
+
+    /* Section dividers */
+    .divider {
+      height:2px;
+      width:84px;
+      margin:.75rem auto 0 auto;
+      background: linear-gradient(90deg,var(--primary),var(--secondary),var(--teal));
+      border-radius:999px;
+    }
+
+    /* Keep a solid background (no floating blobs) */
+    .solid-section {
+      background: #0A0A0A;
+    }
+    .solid-alt {
+      background: linear-gradient(180deg, #0B0B0C 0%, #0A0A0A 100%);
+    }
+
+    /* Dropdown caret */
+    .caret:after{
+      content:""; display:inline-block; width:0; height:0; margin-left:.35rem;
+      border-left:5px solid transparent; border-right:5px solid transparent; border-top:6px solid #ffffffcc;
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-black/60 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#home" class="h-title text-lg tracking-wide text-[var(--primary)]">ENIGMA</a>
+
+      <!-- Desktop -->
+      <div class="hidden md:flex items-center space-x-7 text-sm">
+        <a class="nav-link" href="#home">Home</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#annual-reports">Annual Reports</a>
+        <a class="nav-link" href="#blogs">Blogs</a>
+        <a class="nav-link" href="#ideathon">Ideathon</a>
+
+        <!-- Events dropdown -->
+        <div class="relative group">
+          <a href="#events" class="nav-link caret">Events</a>
+          <div class="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute top-7 -left-2 w-56 card p-2">
+            <a href="#events-ideathon" class="block px-3 py-2 rounded hover:bg-white/5">Ideathon</a>
+            <a href="#events-inception" class="block px-3 py-2 rounded hover:bg-white/5">Inception</a>
+            <a href="#events-workshops" class="block px-3 py-2 rounded hover:bg-white/5">Workshops</a>
+            <a href="#events-esummit" class="block px-3 py-2 rounded hover:bg-white/5">E-Summit</a>
+          </div>
+        </div>
+
+        <a class="nav-link" href="#testimonials">Testimonials</a>
+        <a class="nav-link" href="#team">Team</a>
+        <a class="nav-link" href="#contact">Contact</a>
+      </div>
+
+      <!-- Mobile Hamburger -->
+      <button id="menuBtn" class="md:hidden text-white text-xl focus:outline-none" aria-label="Open menu">
+        <!-- simple burger -->
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden flex flex-col gap-2 px-6 pb-4 bg-black/90 backdrop-blur-md text-sm">
+      <a href="#home" class="py-2">Home</a>
+      <a href="#about" class="py-2">About</a>
+      <a href="#annual-reports" class="py-2">Annual Reports</a>
+      <a href="#blogs" class="py-2">Blogs</a>
+      <a href="#ideathon" class="py-2">Ideathon</a>
+      <a href="#events" class="py-2">Events</a>
+      <div class="pl-3 flex flex-col gap-1 text-[.92rem] text-white/80">
+        <a href="#events-ideathon" class="py-1">– Ideathon</a>
+        <a href="#events-inception" class="py-1">– Inception</a>
+        <a href="#events-workshops" class="py-1">– Workshops</a>
+        <a href="#events-esummit" class="py-1">– E-Summit</a>
+      </div>
+      <a href="#testimonials" class="py-2">Testimonials</a>
+      <a href="#team" class="py-2">Team</a>
+      <a href="#contact" class="py-2">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="home" class="solid-section min-h-screen flex items-center justify-center text-center pt-16">
+    <div class="max-w-4xl px-6">
+      <p class="uppercase tracking-[0.35em] text-xs text-gray-400">Entrepreneurship Cell • NMIT</p>
+      <h1 class="display text-5xl sm:text-6xl md:text-7xl mt-4 bg-clip-text text-transparent"
+          style="background-image:linear-gradient(90deg,var(--primary),var(--secondary),var(--teal));">
+        Build. Innovate. Lead.
+      </h1>
+      <p class="mt-6 text-lg text-gray-300 max-w-2xl mx-auto">Empowering student founders through ideation sprints, hands-on workshops, and a community that ships.</p>
+      <div class="mt-10 flex justify-center gap-3">
+        <a href="#about" class="btn-primary px-6 py-3 rounded-full font-semibold">Discover</a>
+        <a href="#events" class="btn-ghost px-6 py-3 rounded-full font-semibold">Events</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about" class="solid-alt py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <h2 class="h-title text-3xl sm:text-4xl">About <span class="text-[var(--secondary)]">ENIGMA</span></h2>
+          <div class="divider"></div>
+          <p class="mt-4 text-gray-300">Enigma E-Cell is a student-driven platform for creativity, entrepreneurship, and leadership. We host founder talks, hack-style ideathons, and execution-first workshops that turn ideas into momentum.</p>
+          <blockquote class="mt-6 text-lg text-gray-200 border-l-4 pl-4 border-[var(--teal)]">“Business needs to go beyond the interests of their companies to the communities they serve.” — Ratan Tata</blockquote>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="card p-6 text-center">
+            <p class="text-4xl h-title text-[var(--secondary)]">1200+</p>
+            <p class="text-sm text-gray-400">Participants</p>
+          </div>
+          <div class="card p-6 text-center">
+            <p class="text-4xl h-title text-[var(--teal)]">40+</p>
+            <p class="text-sm text-gray-400">Events</p>
+          </div>
+          <div class="card p-6 text-center">
+            <p class="text-4xl h-title text-[var(--primary)]">25+</p>
+            <p class="text-sm text-gray-400">Mentors</p>
+          </div>
+          <div class="card p-6 text-center">
+            <p class="text-4xl h-title text-[var(--secondary)]">∞</p>
+            <p class="text-sm text-gray-400">Ambition</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANNUAL REPORTS -->
+  <section id="annual-reports" class="solid-section py-20">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center">
+        <h2 class="h-title text-3xl sm:text-4xl">Annual <span class="text-[var(--primary)]">Reports</span></h2>
+        <div class="divider"></div>
+        <p class="mt-3 text-gray-400 max-w-2xl mx-auto">Browse our yearly summaries, achievements, and impact metrics.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+        <!-- Duplicate/extend as needed -->
+        <article class="card p-6 flex flex-col">
+          <div class="text-sm text-gray-400">2024–25</div>
+          <h3 class="h-title text-xl mt-1 text-[var(--secondary)]">E-Cell Annual Report</h3>
+          <p class="mt-3 text-gray-300">Highlights of events, partnerships, and student startups nurtured this year.</p>
+          <a href="#" class="mt-5 inline-flex items-center gap-2 btn-ghost px-4 py-2 rounded-lg">
+            View PDF
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M13 5l7 7-7 7M5 12h14"/></svg>
+          </a>
+        </article>
+
+        <article class="card p-6 flex flex-col">
+          <div class="text-sm text-gray-400">2023–24</div>
+          <h3 class="h-title text-xl mt-1 text-[var(--secondary)]">E-Cell Annual Report</h3>
+          <p class="mt-3 text-gray-300">A look back at ideathons, workshops, and community growth.</p>
+          <a href="#" class="mt-5 inline-flex items-center gap-2 btn-ghost px-4 py-2 rounded-lg">
+            View PDF
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M13 5l7 7-7 7M5 12h14"/></svg>
+          </a>
+        </article>
+
+        <article class="card p-6 flex flex-col">
+          <div class="text-sm text-gray-400">2022–23</div>
+          <h3 class="h-title text-xl mt-1 text-[var(--secondary)]">E-Cell Annual Report</h3>
+          <p class="mt-3 text-gray-300">Milestones and impact created by our student-led initiatives.</p>
+          <a href="#" class="mt-5 inline-flex items-center gap-2 btn-ghost px-4 py-2 rounded-lg">
+            View PDF
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M13 5l7 7-7 7M5 12h14"/></svg>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOGS -->
+  <section id="blogs" class="solid-alt py-20">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center">
+        <h2 class="h-title text-3xl sm:text-4xl">Latest <span class="text-[var(--teal)]">Blogs</span></h2>
+        <div class="divider"></div>
+        <p class="mt-3 text-gray-400 max-w-2xl mx-auto">Stories, insights, and resources from the ENIGMA community.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+        <article class="card overflow-hidden">
+          <div class="h-40 bg-gradient-to-br from-red-600/40 to-yellow-600/30"></div>
+          <div class="p-6">
+            <h3 class="h-title text-xl text-[var(--secondary)]">How to pitch your first idea</h3>
+            <p class="mt-2 text-gray-300">Craft a compelling narrative and validate your problem-solution fit.</p>
+            <a href="#" class="inline-flex items-center gap-2 mt-4 btn-ghost px-4 py-2 rounded-lg">Read Post
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M13 5l7 7-7 7M5 12h14"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="card overflow-hidden">
+          <div class="h-40 bg-gradient-to-br from-yellow-500/40 to-teal-500/30"></div>
+          <div class="p-6">
+            <h3 class="h-title text-xl text-[var(--secondary)]">Finding your co-founder on campus</h3>
+            <p class="mt-2 text-gray-300">What to look for, and how to build trusting collaboration.</p>
+            <a href="#" class="inline-flex items-center gap-2 mt-4 btn-ghost px-4 py-2 rounded-lg">Read Post
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M13 5l7 7-7 7M5 12h14"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="card overflow-hidden">
+          <div class="h-40 bg-gradient-to-br from-teal-500/40 to-red-500/30"></div>
+          <div class="p-6">
+            <h3 class="h-title text-xl text-[var(--secondary)]">From MVP to launch</h3>
+            <p class="mt-2 text-gray-300">Turn scrappy prototypes into something users love.</p>
+            <a href="#" class="inline-flex items-center gap-2 mt-4 btn-ghost px-4 py-2 rounded-lg">Read Post
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M13 5l7 7-7 7M5 12h14"/></svg>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- IDEATHON (standalone) -->
+  <section id="ideathon" class="solid-section py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center">
+        <h2 class="h-title text-3xl sm:text-4xl"><span class="text-[var(--secondary)]">Ideathon</span> (Flagship)</h2>
+        <div class="divider"></div>
+        <p class="mt-3 text-gray-300 max-w-3xl mx-auto">A national-level sprint to solve real problems with real solutions. Teams ideate, validate and pitch under time pressure with mentors on deck.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 mt-10">
+        <div class="card p-6">
+          <h4 class="h-title text-lg text-[var(--primary)]">Themes</h4>
+          <p class="text-gray-300 mt-2">Sustainability • FinTech • HealthTech • EduTech • Open Innovation</p>
+        </div>
+        <div class="card p-6">
+          <h4 class="h-title text-lg text-[var(--teal)]">Format</h4>
+          <p class="text-gray-300 mt-2">48-hour sprint • Workshops • Mentorship • Demo Day</p>
+        </div>
+        <div class="card p-6">
+          <h4 class="h-title text-lg text-[var(--secondary)]">Outcomes</h4>
+          <p class="text-gray-300 mt-2">Prototypes • Feedback • Prizes • Community</p>
+        </div>
+      </div>
+      <div class="text-center mt-8">
+        <a href="#contact" class="btn-primary px-6 py-3 rounded-full font-semibold">Register Interest</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENTS (with anchors for sub-sections) -->
+  <section id="events" class="solid-alt py-20">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h2 class="h-title text-3xl sm:text-4xl">Signature <span class="text-[var(--primary)]">Events</span></h2>
+      <div class="divider"></div>
+
+      <div class="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-4 mt-12">
+        <a id="events-ideathon" href="#ideathon" class="card p-6 block">
+          <h3 class="h-title text-xl text-[var(--secondary)]">Ideathon</h3>
+          <p class="mt-3 text-gray-300">A national-level sprint to solve real problems with real solutions.</p>
+        </a>
+        <div id="events-inception" class="card p-6">
+          <h3 class="h-title text-xl text-[var(--primary)]">Inception</h3>
+          <p class="mt-3 text-gray-300">Skill-building sessions on pitching, storytelling, and GTM.</p>
+        </div>
+        <div id="events-workshops" class="card p-6">
+          <h3 class="h-title text-xl text-[var(--secondary)]">Workshops</h3>
+          <p class="mt-3 text-gray-300">Hands-on clinics on MVPs, branding, and fundraising basics.</p>
+        </div>
+        <div id="events-esummit" class="card p-6">
+          <h3 class="h-title text-xl text-[var(--teal)]">E-Summit</h3>
+          <p class="mt-3 text-gray-300">A convergence of founders, innovators, and learners.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="solid-section py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center">
+        <h2 class="h-title text-3xl sm:text-4xl">What <span class="text-[var(--secondary)]">People Say</span></h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 mt-10">
+        <figure class="card p-6">
+          <p class="text-gray-200">“Incredible energy and execution. The ideathon helped us validate fast and learn faster.”</p>
+          <figcaption class="mt-4 text-sm text-gray-400">— Student Participant</figcaption>
+        </figure>
+        <figure class="card p-6">
+          <p class="text-gray-200">“Workshops were crisp and actionable. Our club now prototypes with confidence.”</p>
+          <figcaption class="mt-4 text-sm text-gray-400">— Club Lead</figcaption>
+        </figure>
+        <figure class="card p-6">
+          <p class="text-gray-200">“Loved mentoring the teams—strong focus on problem clarity and user empathy.”</p>
+          <figcaption class="mt-4 text-sm text-gray-400">— Mentor</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" class="solid-alt py-20">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h2 class="h-title text-3xl sm:text-4xl">Core <span class="text-[var(--teal)]">Team</span></h2>
+      <div class="divider"></div>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mt-10">
+        <div class="card p-6">
+          <h3 class="h-title text-xl text-[var(--secondary)]">Bavitesh M</h3>
+          <p class="text-sm text-gray-400">Head</p>
+        </div>
+        <div class="card p-6">
+          <h3 class="h-title text-xl text-[var(--primary)]">Divyarajsinh Matieda</h3>
+          <p class="text-sm text-gray-400">Vice Head</p>
+        </div>
+        <div class="card p-6">
+          <h3 class="h-title text-xl text-[var(--secondary)]">Anushrava Bhat</h3>
+          <p class="text-sm text-gray-400">General Secretary</p>
+        </div>
+        <div class="card p-6">
+          <h3 class="h-title text-xl text-[var(--teal)]">You?</h3>
+          <p class="text-sm text-gray-400">Join us → <a href="#contact" class="text-[var(--teal)] underline">Apply</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="solid-section py-20">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h2 class="h-title text-3xl sm:text-4xl">Contact <span class="text-[var(--primary)]">Us</span></h2>
+      <div class="divider"></div>
+      <p class="mt-2 text-gray-300">Email: <a href="mailto:ecell@nmit.ac.in" class="font-semibold text-[var(--secondary)] underline-offset-4 hover:underline">ecell@nmit.ac.in</a></p>
+
+      <form class="mt-8 max-w-xl mx-auto grid gap-4 sm:grid-cols-2">
+        <input class="card px-4 py-3 w-full" placeholder="Your Name" />
+        <input class="card px-4 py-3 w-full" placeholder="Your Email" type="email" />
+        <textarea class="card px-4 py-3 sm:col-span-2" rows="4" placeholder="Your Message"></textarea>
+        <button class="px-6 py-3 rounded-xl font-semibold sm:col-span-2 btn-primary" type="submit">Submit</button>
+      </form>
+
+      <!-- Socials: Official brand logos (inline SVG) -->
+      <div class="mt-10 flex justify-center gap-4">
+        <!-- LinkedIn -->
+        <a href="https://linkedin.com" target="_blank" class="card p-3 rounded-full hover:shadow-lg" aria-label="LinkedIn">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#0A66C2" d="M20.447 20.452H16.89v-5.569c0-1.329-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.941v5.665H9.346V9h3.409v1.561h.049c.475-.9 1.637-1.852 3.369-1.852 3.605 0 4.269 2.373 4.269 5.459v6.284zM5.337 7.433a1.98 1.98 0 1 1 0-3.961 1.98 1.98 0 0 1 0 3.961zM6.99 20.452H3.68V9h3.31v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.226.792 24 1.771 24h20.451C23.2 24 24 23.226 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+        <!-- Instagram (glyph) -->
+        <a href="https://instagram.com" target="_blank" class="card p-3 rounded-full hover:shadow-lg" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#E4405F" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849s-.012 3.584-.069 4.849c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.645.07-4.85.07s-3.584-.012-4.849-.07c-3.26-.149-4.771-1.699-4.919-4.92C2.325 15.584 2.313 15.204 2.313 12s.012-3.584.069-4.849c.149-3.227 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.053.014 8.333 0 8.741 0 12c0 3.259.014 3.667.072 4.947.2 4.363 2.622 6.781 6.98 6.981C8.333 23.986 8.741 24 12 24s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.981.058-1.28.072-1.688.072-4.947 0-3.259-.014-3.667-.072-4.947-.2-4.363-2.622-6.781-6.98-6.981C15.667.014 15.259 0 12 0z"/>
+            <path fill="#E4405F" d="M12 5.838A6.162 6.162 0 1 0 12 18.162 6.162 6.162 0 0 0 12 5.838m0-2A8.162 8.162 0 1 1 12 22.162 8.162 8.162 0 0 1 12 3.838z"/>
+            <circle cx="18.406" cy="5.595" r="1.44" fill="#E4405F"/>
+          </svg>
+        </a>
+        <!-- X (Twitter) -->
+        <a href="https://twitter.com" target="_blank" class="card p-3 rounded-full hover:shadow-lg" aria-label="X">
+          <svg width="22" height="22" viewBox="0 0 1200 1227" aria-hidden="true">
+            <path fill="#fff" d="M714.2 519.9 1156.9 0H1051L666.3 450.9 357.4 0H0l463.1 681.2L0 1226.5h105.9l406.3-475.6 329.3 475.6h357.4L714.2 519.9Zm-144 168.8-47-67.1L144 79.7h163.1l302.3 432.1 47 67.1 405.3 578.2H898.6L570.2 688.7Z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-8 text-center bg-black/90 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-sm tracking-wide text-gray-400">© ENIGMA – E-Cell NMIT</p>
+        <div class="flex flex-wrap items-center justify-center gap-4 text-sm">
+          <a href="#home" class="text-gray-400 hover:text-white">Home</a>
+          <a href="#about" class="text-gray-400 hover:text-white">About</a>
+          <a href="#annual-reports" class="text-gray-400 hover:text-white">Annual Reports</a>
+          <a href="#blogs" class="text-gray-400 hover:text-white">Blogs</a>
+          <a href="#ideathon" class="text-gray-400 hover:text-white">Ideathon</a>
+          <a href="#events" class="text-gray-400 hover:text-white">Events</a>
+          <a href="#testimonials" class="text-gray-400 hover:text-white">Testimonials</a>
+          <a href="#team" class="text-gray-400 hover:text-white">Team</a>
+          <a href="#contact" class="text-gray-400 hover:text-white">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <button id="backToTop" class="hidden fixed bottom-6 right-6 p-3 rounded-full text-white shadow-lg transition" aria-label="Back to top">
+    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path stroke-linecap="round" stroke-width="2" d="M19 14l-7-7-7 7"/>
+    </svg>
+  </button>
+
+  <script>
+    // Navbar solid on scroll + back to top
+    const nav = document.getElementById('navbar');
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY > 10;
+      nav.classList.toggle('bg-black/90', scrolled);
+      nav.classList.toggle('border-white/10', scrolled);
+      backToTop.classList.toggle('hidden', window.scrollY < 250);
+    });
+
+    // Mobile Menu
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    menuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // ScrollReveal
+    const sr = ScrollReveal({ distance:'22px', duration:800, easing:'ease', interval:90, origin:'bottom' });
+    sr.reveal('.h-title');
+    sr.reveal('.card', { interval:120 });
+    sr.reveal('section .btn-primary', { origin:'top' });
+  </script>
+</body>
+</html>
